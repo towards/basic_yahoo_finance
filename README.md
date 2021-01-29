@@ -1,5 +1,7 @@
 # BasicYahooFinance
 
+[![Gem Version](https://badge.fury.io/rb/basic_yahoo_finance.svg)](https://badge.fury.io/rb/basic_yahoo_finance)
+
 This is a simple Ruby gem to query the Yahoo! Finance API.
 
 Most of the available gems available on rubygems.org for this purpose are either not maintained anymore or simply do not working due to outdated API code. The goal of this gem is to be as basic as possible, hence the name, and to "simply" work. It would be typcially used to get information such as ask/bid price, close price, volume, for one or more stocks by using its symbol. The data is returned raw directly from the API as JSON output.
@@ -42,6 +44,7 @@ This will return a `Hash` of hashes with each stock information available under 
 
 ```ruby
 # Get stock's actual price
+
 data['AVEM']['regularMarketPrice']
 ```
 
