@@ -20,6 +20,6 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_invalid_ticker
-    assert_empty @query.quotes("ZZZZ")["ZZZZ"]
+    assert_empty @query.quotes("ZZZZ")
   end
 end

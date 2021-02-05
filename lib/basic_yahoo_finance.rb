@@ -12,7 +12,8 @@ module BasicYahooFinance
     def quotes(symbols)
       symbols_value = generate_symbols_value(symbols)
       begin
-        uri = URI.open("#{API_URL}/v7/finance/quote?symbols=#{symbols_value}")
+        uri = URI.open("#{API_URL}/v7/finance/quote?symbols=#{symbols_value}",
+                       "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
         process_output(JSON.parse(uri.read))
       rescue OpenURI::HTTPError
         empty_symbols_hash(symbols)
@@ -39,6 +40,7 @@ module BasicYahooFinance
           hash[r["symbol"]] = r
         end
       end
+      # TODO: compare hash keys with symbol(s) requested and add symbols which had no results from API
       hash
     end
 

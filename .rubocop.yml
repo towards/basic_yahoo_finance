@@ -5,6 +5,9 @@ AllCops:
 Metrics/AbcSize:
   Max: 25
 
+Metrics/MethodLength:
+  Max: 11
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
