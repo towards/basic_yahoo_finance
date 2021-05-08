@@ -2,12 +2,17 @@
 
 require "json"
 require "open-uri"
+require_relative "basic_yahoo_finance/cache"
 require_relative "basic_yahoo_finance/version"
 
 module BasicYahooFinance
   # Class to send queries to Yahoo Finance API
   class Query
     API_URL = "https://query1.finance.yahoo.com"
+
+    def initialize(cache_url = nil)
+      @cache_url = cache_url
+    end
 
     def quotes(symbols)
       symbols_value = generate_symbols_value(symbols)
