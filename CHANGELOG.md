@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial setup for redis caching
+- Utility class with symbols generator used in currency queries
 
 ## 0.2.0 - 2021-02-05
 

@@ -22,4 +22,8 @@ class BasicYahooFinanceTest < Minitest::Test
   def test_invalid_ticker
     assert_empty @query.quotes("ZZZZ")
   end
+
+  def test_generate_currency_symbols
+    assert_equal "USDCHF=X,EURCHF=X", BasicYahooFinance::Util.generate_currency_symbols(%w[USD EUR], "CHF")
+  end
 end
