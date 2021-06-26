@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial setup for redis caching
 - Utility class with symbols generator used in currency queries
+- Foreign exchange symbol generator and finder
 
 ## 0.2.0 - 2021-02-05
 
