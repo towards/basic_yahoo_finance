@@ -9,7 +9,7 @@ module BasicYahooFinance
       if currency1 == "USD" && currency2 == "CHF"
         quotes["USDCHF=X"].nil? ? "CHF=X" : "#{currency1}CHF=X"
       else
-        "#{currency1}/#{currency2}=X"
+        "#{currency1}#{currency2}=X"
       end
     end
 

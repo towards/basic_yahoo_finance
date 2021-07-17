@@ -24,7 +24,7 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_find_fx_symbol_gbp_chf
-    assert_equal "GBP/CHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBP/CHF"), "GBP", "CHF")
+    assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBP/CHF"), "GBP", "CHF")
   end
 
   def test_find_fx_symbol_usd_chf
