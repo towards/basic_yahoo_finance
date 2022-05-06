@@ -2,6 +2,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
+Lint/EmptyClass:
+  AllowComments: true
+
 Metrics/AbcSize:
   Max: 25
 
