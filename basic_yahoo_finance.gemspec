@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/towards/basic_yahoo_finance/blob/master/CHANGELOG.md"
   spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/basic_yahoo_finance"
   spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["rubygems_mfa_required"] = "true"
   spec.metadata["source_code_uri"] = "https://github.com/towards/basic_yahoo_finance"
 
   spec.add_dependency "redis", "~> 4.2"
