@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix format of returned symbol for FX symbol finder
 - Update gems
+- Parse URI before opening request to API
 
 ## 0.2.0 - 2021-02-05
 

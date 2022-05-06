@@ -2,6 +2,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
+Layout/LineLength:
+  Max: 120
+
 Lint/EmptyClass:
   AllowComments: true
 
@@ -19,5 +22,5 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
-Layout/LineLength:
-  Max: 120
+Security/Open:
+  Enabled: false
