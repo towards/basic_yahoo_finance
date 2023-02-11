@@ -2,7 +2,7 @@
 
 require "json"
 require "open-uri"
-require_relative "basic_yahoo_finance/cache"
+# require_relative "basic_yahoo_finance/cache"
 require_relative "basic_yahoo_finance/util"
 require_relative "basic_yahoo_finance/version"
 
