@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
   spec.metadata["source_code_uri"] = "https://github.com/towards/basic_yahoo_finance"
 
-  spec.add_dependency "redis", "~> 4.2"
+  # spec.add_dependency "redis", "~> 5.0"
   spec.add_development_dependency "minitest-emoji", "~> 2.0"
 end
