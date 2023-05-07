@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update gem dependencies and Ruby version
+
 ### Fixed
 
 - Workaround for broken API URL generating HTTP 403 Forbidden error
