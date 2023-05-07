@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+require "simplecov"
 SimpleCov.start
 
 require "minitest/autorun"
@@ -24,6 +24,13 @@ class BasicYahooFinanceTest < Minitest::Test
 
   def test_invalid_ticker
     assert_empty @query.quotes("ZZZZ")
+  end
+
+  def test_quotes_httperror
+    raises_exception = ->(_symbols) { raise OpenURI::HTTPError.new("message", "io") }
+    @query.stub :quotes, raises_exception do
+      assert_raises(OpenURI::HTTPError) { @query.quotes("ZZZZ") }
+    end
   end
 
   def test_find_fx_symbol_gbp_chf
