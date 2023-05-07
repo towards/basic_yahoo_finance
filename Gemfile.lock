@@ -7,6 +7,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    docile (1.4.0)
     json (2.6.3)
     minitest-emoji (2.0.0)
     parallel (1.23.0)
@@ -29,6 +30,12 @@ GEM
     rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     unicode-display_width (2.4.2)
 
 PLATFORMS
@@ -39,6 +46,7 @@ DEPENDENCIES
   minitest-emoji (~> 2.0)
   rake (~> 13.0)
   rubocop (~> 1.50)
+  simplecov
 
 BUNDLED WITH
    2.4.12
