@@ -1,7 +1,7 @@
 # BasicYahooFinance
 
 [![Gem Version](https://badge.fury.io/rb/basic_yahoo_finance.svg)](https://badge.fury.io/rb/basic_yahoo_finance)
-[![Coverage](https://github.com/towards/basic_yahoo_finance/raw/master/coverage/coverage.svg)](https://github.com/towards/basic_yahoo_finance)
+[![Coverage](https://github.com/towards/basic_yahoo_finance/raw/main/coverage/coverage.svg)](https://github.com/towards/basic_yahoo_finance)
 
 This is a simple Ruby gem to query the Yahoo! Finance API.
 
