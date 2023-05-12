@@ -1,6 +1,7 @@
 # BasicYahooFinance
 
 [![Gem Version](https://badge.fury.io/rb/basic_yahoo_finance.svg)](https://badge.fury.io/rb/basic_yahoo_finance)
+[![Coverage](https://github.com/towards/basic_yahoo_finance/raw/master/coverage/coverage.svg)](https://github.com/towards/basic_yahoo_finance)
 
 This is a simple Ruby gem to query the Yahoo! Finance API.
 
@@ -60,8 +61,8 @@ As linter RuboCop is used and can be run using:
 
     $ rake rubocop
 
-This gem has been developed with Ruby 3.0 but should be downward compatible with at least all supported versions of Ruby.
+This gem is being developed with Ruby 3.2 but should be downward compatible with at least all supported versions of Ruby.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/towards/basic_yahoo_finance. If you submit a pull request please make sure to write a test case covering your changes.
+Bug reports and pull requests are welcome on GitHub at https://github.com/towards/basic_yahoo_finance. If you submit a pull request please make sure to write a test case using MiniTest covering your changes.

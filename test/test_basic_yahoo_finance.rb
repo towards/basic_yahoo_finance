@@ -3,9 +3,13 @@
 require "simplecov"
 SimpleCov.start
 
+require "simplecov-formatter-badge"
 require "minitest/autorun"
 require "minitest/emoji"
 require "basic_yahoo_finance"
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new \
+  [SimpleCov::Formatter::HTMLFormatter, SimpleCov::Formatter::BadgeFormatter]
 
 class BasicYahooFinanceTest < Minitest::Test
   def setup
@@ -26,10 +30,19 @@ class BasicYahooFinanceTest < Minitest::Test
     assert_empty @query.quotes("ZZZZ")
   end
 
-  def test_quotes_httperror
-    raises_exception = ->(_symbols) { raise OpenURI::HTTPError.new("message", "io") }
-    @query.stub :quotes, raises_exception do
-      assert_raises(OpenURI::HTTPError) { @query.quotes("ZZZZ") }
+  def test_httperror_empty_symbol_hash
+    raises_exception = ->(_msg, _io) { raise OpenURI::HTTPError.new(nil, nil) }
+    URI.stub :open, raises_exception do
+      assert_empty @query.quotes("AVEM")["AVEM"]
+    end
+  end
+
+  def test_httperror_empty_symbols_hash
+    raises_exception = ->(_msg, _io) { raise OpenURI::HTTPError.new(nil, nil) }
+    URI.stub :open, raises_exception do
+      q = @query.quotes(%w[AVDV AVEM])
+      assert_empty q["AVDV"]
+      assert_empty q["AVEM"]
     end
   end
 

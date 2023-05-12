@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- SimpleCov coverage badge
+- Tests for failing quotes method due to HTTPError
 - Test for quotes method raising OpenURI::HTTPError
 - SimpleCov for code coverage
 
