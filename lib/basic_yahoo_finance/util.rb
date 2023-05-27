@@ -7,7 +7,7 @@ module BasicYahooFinance
     def self.find_fx_symbol(quotes, currency1, currency2)
       # Exception for USDCHF=X symbol as it is sometimes returned as CHF=X
       if currency1 == "USD" && currency2 == "CHF"
-        quotes["USDCHF=X"].nil? ? "CHF=X" : "#{currency1}CHF=X"
+        quotes["USDCHF=X", "price"].nil? ? "CHF=X" : "#{currency1}CHF=X"
       else
         "#{currency1}#{currency2}=X"
       end

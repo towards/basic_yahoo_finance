@@ -27,26 +27,66 @@ Or install it yourself as:
 
 ## Usage
 
-Instantiate the `Query` class and use the quotes method on it with either one single symbol as `String` or by passing an `Array` of symbols such as show in the two examples below.
+Instantiate the `Query` class and use the quotes method on it with a single stock as a `String` and a single module as a `String`.
 
 ```ruby
-# Query one single stock
+# Query a stock, with the price module
 
 query = BasicYahooFinance::Query.new
-data = query.quotes('AVEM')
+data = query.quotes('AVEM', 'price')
 
-# Query multiple stocks
-
-query = BasicYahooFinance::Query.new
-data = query.quotes(['AVDV', 'AVUV'])
 ```
 
-This will return a `Hash` of hashes with each stock information available under its symbol name as key in the `Hash`. For example:
+This will return a `Hash` of the stock information available under its symbol name as key in the `Hash`. For example:
 
 ```ruby
-# Get stock's actual price
+# Get stock's actual price as a formatted string
 
-data['AVEM']['regularMarketPrice']
+data['AVEM']['regularMarketPrice']['fmt']
+# "52.72"
+
+# OR the raw value
+data["AVEM"]["regularMarketPrice"]["raw"]
+# 52.72
+```
+
+## Modules
+
+While `price` is a common module, its not the only one. A list of known modules include:
+
+```
+assetProfile
+balanceSheetHistory
+balanceSheetHistoryQuarterly
+calendarEvents
+cashflowStatementHistory
+cashflowStatementHistoryQuarterly
+defaultKeyStatistics
+earnings
+earningsHistory
+earningsTrend
+esgScores
+financialData
+fundOwnership
+incomeStatementHistory
+incomeStatementHistoryQuarterly
+indexTrend
+industryTrend
+insiderHolders
+insiderTransactions
+institutionOwnership
+majorDirectHolders
+majorHoldersBreakdown
+netSharePurchaseActivity
+price
+recommendationTrend
+secFilings
+sectorTrend
+summaryDetail
+summaryProfile
+upgradeDowngradeHistory
+pageviews
+quotetype
 ```
 
 ## Development

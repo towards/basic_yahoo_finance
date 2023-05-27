@@ -9,58 +9,33 @@ require_relative "basic_yahoo_finance/version"
 module BasicYahooFinance
   # Class to send queries to Yahoo Finance API
   class Query
-    API_URL = "https://query1.finance.yahoo.com"
+    API_URL = "https://query2.finance.yahoo.com"
 
     def initialize(cache_url = nil)
       @cache_url = cache_url
-    end
-
-    def quotes(symbols)
-      symbols_value = generate_symbols_value(symbols)
+    end 
+    
+    def quotes(symbol, mod)
       begin
-        url = URI.parse("#{API_URL}/v6/finance/quote?symbols=#{symbols_value}")
+        url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{symbol}?modules=#{mod}")
         uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
-        process_output(JSON.parse(uri.read))
-      rescue OpenURI::HTTPError
-        empty_symbols_hash(symbols)
+        process_output(JSON.parse(uri.read), mod)
+      
+      rescue OpenURI::HTTPError => error
+        error_message = JSON.parse(error.io.read)["quoteSummary"]["error"] || "Unknown error"
       end
     end
 
     private
 
-    def generate_symbols_value(symbols, separator = ",")
-      case symbols
-      when String
-        symbols
-      when Array
-        symbols.join(separator)
-      end
-    end
-
-    def process_output(json)
+    def process_output(json, mod)
       hash = {}
-      if json["quoteResponse"]["result"].count == 1
-        hash[json["quoteResponse"]["result"][0]["symbol"]] = json["quoteResponse"]["result"].pop
-      elsif json["quoteResponse"]["result"].count > 1
-        json["quoteResponse"]["result"].each do |r|
-          hash[r["symbol"]] = r
-        end
-      end
-      # TODO: compare hash keys with symbol(s) requested and add symbols which had no results from API
+      symbol_name = json["quoteSummary"]["result"][0][mod]["symbol"]
+      module_data = json["quoteSummary"]["result"][0][mod]
+      hash[symbol_name] = module_data
+
       hash
     end
 
-    def empty_symbols_hash(symbols)
-      hash = {}
-      case symbols
-      when String
-        hash[symbols] = {}
-      when Array
-        symbols.each do |s|
-          hash[s] = {}
-        end
-      end
-      hash
-    end
   end
 end
