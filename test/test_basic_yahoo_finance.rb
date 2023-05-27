@@ -24,9 +24,12 @@ class BasicYahooFinanceTest < Minitest::Test
     assert_includes(@query.quotes("ZZZZ", "price"), "code")
   end
 
+  def test_summary_detail_module
+    assert_includes(@query.quotes("AVUV", "summaryDetail"), "AVUV")
+  end
+
   def test_http_error
     error_message = @query.quotes("ZZZZ", "price")
-    # expected_error = {"code"=>"Not Found", "description"=>"Quote not found for ticker symbol: ZZZZ"}
     assert_includes(error_message, "code")
   end
 

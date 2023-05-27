@@ -19,7 +19,7 @@ module BasicYahooFinance
       begin
         url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{symbol}?modules=#{mod}")
         uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
-        process_output(JSON.parse(uri.read), mod)
+        process_output(JSON.parse(uri.read), symbol, mod)
       
       rescue OpenURI::HTTPError => error
         error_message = JSON.parse(error.io.read)["quoteSummary"]["error"] || "Unknown error"
@@ -28,11 +28,10 @@ module BasicYahooFinance
 
     private
 
-    def process_output(json, mod)
+    def process_output(json, symbol, mod)
       hash = {}
-      symbol_name = json["quoteSummary"]["result"][0][mod]["symbol"]
       module_data = json["quoteSummary"]["result"][0][mod]
-      hash[symbol_name] = module_data
+      hash[symbol] = module_data
 
       hash
     end
