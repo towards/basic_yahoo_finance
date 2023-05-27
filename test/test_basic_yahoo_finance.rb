@@ -17,41 +17,28 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_valid_ticker
-    assert_includes(@query.quotes("AVUV"), "AVUV")
-  end
-
-  def test_multiple_tickers
-    quotes = @query.quotes(%w[AVDV AVEM])
-    assert_includes(quotes, "AVDV")
-    assert_includes(quotes, "AVEM")
+    assert_includes(@query.quotes("AVUV", "price"), "AVUV")
   end
 
   def test_invalid_ticker
-    assert_empty @query.quotes("ZZZZ")
+    assert_includes(@query.quotes("ZZZZ", "price"), "code")
   end
 
-  def test_httperror_empty_symbol_hash
-    raises_exception = ->(_msg, _io) { raise OpenURI::HTTPError.new(nil, nil) }
-    URI.stub :open, raises_exception do
-      assert_empty @query.quotes("AVEM")["AVEM"]
-    end
+  def test_summary_detail_module
+    assert_includes(@query.quotes("AVUV", "summaryDetail"), "AVUV")
   end
 
-  def test_httperror_empty_symbols_hash
-    raises_exception = ->(_msg, _io) { raise OpenURI::HTTPError.new(nil, nil) }
-    URI.stub :open, raises_exception do
-      q = @query.quotes(%w[AVDV AVEM])
-      assert_empty q["AVDV"]
-      assert_empty q["AVEM"]
-    end
+  def test_http_error
+    error_message = @query.quotes("ZZZZ", "price")
+    assert_includes(error_message, "code")
   end
 
   def test_find_fx_symbol_gbp_chf
-    assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBP/CHF"), "GBP", "CHF")
+    assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBPCHF=x", "price"), "GBP", "CHF")
   end
 
   def test_find_fx_symbol_usd_chf
-    assert_equal "CHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("USD/CHF"), "USD", "CHF")
+    assert_equal "CHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("USDCHF=x", "price"), "USD", "CHF")
   end
 
   def test_generate_currency_symbols
