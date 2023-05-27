@@ -13,17 +13,14 @@ module BasicYahooFinance
 
     def initialize(cache_url = nil)
       @cache_url = cache_url
-    end 
-    
+    end
+
     def quotes(symbol, mod)
-      begin
-        url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{symbol}?modules=#{mod}")
-        uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
-        process_output(JSON.parse(uri.read), symbol, mod)
-      
-      rescue OpenURI::HTTPError => error
-        error_message = JSON.parse(error.io.read)["quoteSummary"]["error"] || "Unknown error"
-      end
+      url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{symbol}?modules=#{mod}")
+      uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
+      process_output(JSON.parse(uri.read), symbol, mod)
+    rescue OpenURI::HTTPError => e
+      JSON.parse(e.io.read)["quoteSummary"]["error"] || "Unknown error"
     end
 
     private
@@ -35,6 +32,5 @@ module BasicYahooFinance
 
       hash
     end
-
   end
 end
