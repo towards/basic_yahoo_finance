@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require "json"
-require "open-uri"
+# require "open-uri"
+require "net/http/persistent"
+
 # require_relative "basic_yahoo_finance/cache"
 require_relative "basic_yahoo_finance/util"
 require_relative "basic_yahoo_finance/version"
@@ -18,13 +20,18 @@ module BasicYahooFinance
     def quotes(symbol, mod = "price")
       hash_result = {}
       symbols = make_symbols_array(symbol)
+      http = Net::HTTP::Persistent.new
+      http.override_headers["User-Agent"] = "BYF/#{BasicYahooFinance::VERSION}"
       symbols.each do |sym|
-        url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}")
-        uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
-        hash_result.store(sym, process_output(JSON.parse(uri.read), mod))
-      rescue OpenURI::HTTPError => e
-        hash_result.store(sym, JSON.parse(e.io.read)["quoteSummary"]["error"] || "Unknown error")
+        uri = URI "#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}"
+        response = http.request(uri)
+        hash_result.store(sym, process_output(JSON.parse(response.body), mod))
+      rescue StandardError => e
+        hash_result.store(sym, "")
       end
+
+      http.shutdown
+
       hash_result
     end
 
