@@ -13,7 +13,7 @@ module BasicYahooFinance
       end
     end
 
-    # Generate currency symbols based on array of currencies and base currency
+    # Generate currency symbols array based on array of currencies and base currency
     def self.generate_currency_symbols(currencies, base_currency)
       currency_symbols = []
       currencies.each do |currency|
@@ -21,7 +21,7 @@ module BasicYahooFinance
 
         currency_symbols.push("#{currency}#{base_currency}=X")
       end
-      currency_symbols.join(",")
+      currency_symbols
     end
 
     # Generate symobol for foreign exchange rate lookup

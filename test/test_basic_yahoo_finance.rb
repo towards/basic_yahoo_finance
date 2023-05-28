@@ -42,7 +42,7 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_generate_currency_symbols
-    assert_equal "USDCHF=X,EURCHF=X", BasicYahooFinance::Util.generate_currency_symbols(%w[USD EUR], "CHF")
+    assert_equal ["USDCHF=X", "EURCHF=X"], BasicYahooFinance::Util.generate_currency_symbols(%w[USD EUR], "CHF")
   end
 
   def test_generate_fx_symbol_gbp_chf
