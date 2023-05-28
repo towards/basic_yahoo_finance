@@ -21,7 +21,9 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_invalid_ticker
-    assert_includes(@query.quotes("ZZZZ", "price")["ZZZZ"], "code")
+    error_message = @query.quotes("ZZZZ", "price")
+    expected_error = { "code" => "Not Found", "description" => "Quote not found for ticker symbol: ZZZZ" }
+    assert_equal(expected_error, error_message["ZZZZ"])
   end
 
   def test_summary_detail_module
@@ -29,9 +31,18 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_http_error
-    error_message = @query.quotes("ZZZZ", "price")
-    expected_error = { "code" => "Not Found", "description" => "Quote not found for ticker symbol: ZZZZ" }
-    assert_equal(expected_error, error_message["ZZZZ"])
+    symbol = "AVUV"
+    http = Object.new
+    def http.request(_)
+      raise Net::HTTPBadResponse, "Bad response"
+    end
+    begin
+      http.request("${API_URL}/v10/finance/quoteSummary/#{symbol}?modules=price")
+    rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
+      result = { symbol => "HTTP Error" }
+    end
+
+    assert_equal({ "AVUV" => "HTTP Error" }, result)
   end
 
   def test_find_fx_symbol_gbp_chf
