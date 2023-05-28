@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "json"
-# require "open-uri"
 require "net/http/persistent"
 require "net/http"
 
@@ -24,7 +23,7 @@ module BasicYahooFinance
       http = Net::HTTP::Persistent.new
       http.override_headers["User-Agent"] = "BYF/#{BasicYahooFinance::VERSION}"
       symbols.each do |sym|
-        uri = URI "#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}"
+        uri = URI("#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}")
         response = http.request(uri)
         hash_result.store(sym, process_output(JSON.parse(response.body), mod))
       rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPServerError, JSON::ParserError
