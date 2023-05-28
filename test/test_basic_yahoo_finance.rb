@@ -21,7 +21,7 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_invalid_ticker
-    assert_includes(@query.quotes("ZZZZ", "price"), "code")
+    assert_includes(@query.quotes("ZZZZ", "price")["ZZZZ"], "code")
   end
 
   def test_summary_detail_module
@@ -30,7 +30,7 @@ class BasicYahooFinanceTest < Minitest::Test
 
   def test_http_error
     error_message = @query.quotes("ZZZZ", "price")
-    assert_includes(error_message, "code")
+    assert_includes(error_message["ZZZZ"], "code")
   end
 
   def test_find_fx_symbol_gbp_chf

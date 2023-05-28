@@ -15,22 +15,31 @@ module BasicYahooFinance
       @cache_url = cache_url
     end
 
-    def quotes(symbol, mod)
-      url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{symbol}?modules=#{mod}")
-      uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
-      process_output(JSON.parse(uri.read), symbol, mod)
-    rescue OpenURI::HTTPError => e
-      JSON.parse(e.io.read)["quoteSummary"]["error"] || "Unknown error"
+    def quotes(symbol, mod = "price")
+      hash_result = {}
+      symbols = make_symbols_array(symbol)
+      symbols.each do |sym|
+        url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}")
+        uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
+        hash_result.store(sym, process_output(JSON.parse(uri.read), mod))
+      rescue OpenURI::HTTPError => e
+        hash_result.store(sym, JSON.parse(e.io.read)["quoteSummary"]["error"] || "Unknown error")
+      end
+      hash_result
     end
 
     private
 
-    def process_output(json, symbol, mod)
-      hash = {}
-      module_data = json["quoteSummary"]["result"][0][mod]
-      hash[symbol] = module_data
+    def make_symbols_array(symbol)
+      if symbol.instance_of?(Array)
+        symbol
+      else
+        [symbol]
+      end
+    end
 
-      hash
+    def process_output(json, mod)
+      json["quoteSummary"]["result"][0][mod]
     end
   end
 end
