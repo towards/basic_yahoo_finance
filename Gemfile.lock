@@ -7,9 +7,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    connection_pool (2.4.1)
     docile (1.4.0)
     json (2.6.3)
     minitest-emoji (2.0.0)
+    net-http-persistent (4.0.2)
+      connection_pool (~> 2.2)
     parallel (1.23.0)
     parser (3.2.2.1)
       ast (~> 2.4.1)
@@ -46,6 +49,7 @@ PLATFORMS
 DEPENDENCIES
   basic_yahoo_finance!
   minitest-emoji (~> 2.0)
+  net-http-persistent (~> 4.0, >= 4.0.2)
   rake (~> 13.0)
   rubocop (~> 1.50)
   simplecov

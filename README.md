@@ -34,7 +34,8 @@ Instantiate the `Query` class and use the quotes method on it with a single stoc
 
 query = BasicYahooFinance::Query.new
 data = query.quotes('AVEM', 'price')
-# The module argument can be left empty as the price module is the default
+
+# OR the module argument can be left empty as the price module is the default
 data = query.quotes('AVEM')
 
 # Query multiple stocks
