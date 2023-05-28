@@ -26,23 +26,24 @@ class BasicYahooFinanceTest < Minitest::Test
     assert_equal(expected_error, error_message["ZZZZ"])
   end
 
+  def test_valid_tickers
+    q = @query.quotes(%w[AVUV AVEM])
+    assert_includes(q, "AVUV") and assert_includes(q, "AVEM")
+  end
+
   def test_summary_detail_module
     assert_includes(@query.quotes("AVUV", "summaryDetail"), "AVUV")
   end
 
   def test_http_error
-    symbol = "AVUV"
-    http = Object.new
+    http = Net::HTTP::Persistent.new
     def http.request(_)
       raise Net::HTTPBadResponse, "Bad response"
     end
-    begin
-      http.request("${API_URL}/v10/finance/quoteSummary/#{symbol}?modules=price")
-    rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
-      result = { symbol => "HTTP Error" }
+    Net::HTTP::Persistent.stub :new, http do
+      result = @query.quotes("AVUV")
+      assert_equal({ "AVUV" => "HTTP Error" }, result)
     end
-
-    assert_equal({ "AVUV" => "HTTP Error" }, result)
   end
 
   def test_find_fx_symbol_gbp_chf

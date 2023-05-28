@@ -13,9 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Implement persistent HTTP by [@daviddigital](https://github.com/daviddigital)
 - generate_currency_symbols() return an array instead of a string
 - Default to "price" module if nothing specificed in quotes()
 - Update to use v10 version endpoint of API by [@daviddigital](https://github.com/daviddigital)
+
+### Fixed
+
+- MiniTest tests for full 100% code coverage
 
 ## [0.4.0] - 2023-05-23
 
