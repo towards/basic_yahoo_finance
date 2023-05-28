@@ -30,7 +30,8 @@ class BasicYahooFinanceTest < Minitest::Test
 
   def test_http_error
     error_message = @query.quotes("ZZZZ", "price")
-    assert_includes(error_message["ZZZZ"], "code")
+    expected_error = { "code" => "Not Found", "description" => "Quote not found for ticker symbol: ZZZZ" }
+    assert_equal(expected_error, error_message["ZZZZ"])
   end
 
   def test_find_fx_symbol_gbp_chf
