@@ -7,8 +7,6 @@ This is a simple Ruby gem to query the Yahoo! Finance API.
 
 Most of the available gems available on rubygems.org for this purpose are either not maintained anymore or simply do not working due to outdated API code. The goal of this gem is to be as basic as possible, hence the name, and to "simply" work. It would be typcially used to get information such as ask/bid price, close price, volume, for one or more stocks by using its symbol. The data is returned raw directly from the API as JSON output.
 
-Lastly, this gem also has the advantage of having no dependencies to any other third-party gems.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -27,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-Instantiate the `Query` class and use the quotes method on it with a single stock as a `String` and a single module as a `String`.
+Instantiate the `Query` class and use the quotes method on it with either a single stock as a `String` and a single module as a `String` or by passing an `Array` of stocks such as show in the two examples below.
 
 ```ruby
 # Query a stock, with the price module

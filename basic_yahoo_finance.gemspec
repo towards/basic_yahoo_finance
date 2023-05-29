@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/towards/basic_yahoo_finance"
 
   # spec.add_dependency "redis", "~> 5.0"
+  spec.add_runtime_dependency "net-http-persistent", "~> 4.0", ">= 4.0.2"
   spec.add_development_dependency "minitest-emoji", "~> 2.0"
 end
