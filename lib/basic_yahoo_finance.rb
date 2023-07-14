@@ -19,7 +19,7 @@ module BasicYahooFinance
       hash_result = {}
       symbols = make_symbols_array(symbol)
       symbols.each do |sym|
-        url = URI.parse("#{API_URL}/v10/finance/quoteSummary/#{sym}?modules=#{mod}")
+        url = URI.parse("#{API_URL}/v6/finance/quoteSummary/#{sym}?modules=#{mod}")
         uri = URI.open(url, "User-Agent" => "BYF/#{BasicYahooFinance::VERSION}")
         hash_result.store(sym, process_output(JSON.parse(uri.read), mod))
       rescue OpenURI::HTTPError => e
