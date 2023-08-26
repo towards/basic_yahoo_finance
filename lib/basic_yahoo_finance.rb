@@ -17,6 +17,25 @@ module BasicYahooFinance
       @cache_url = cache_url
     end
 
+    def find_symbol_by_isin(isin)
+      hash_result = {}
+      isins = make_symbols_array(isin)
+
+      http = Net::HTTP::Persistent.new
+      http.override_headers["User-Agent"] = "BYF/#{BasicYahooFinance::VERSION}"
+      isins.each do |isin|
+        uri = URI("#{API_URL}/v1/finance/search?q=#{isin}&quotesCount=1&newsCount=0&listsCount=0&quotesQueryId=tss_match_phrase_query")
+        response = http.request(uri)
+        hash_result.store(isin, process_isin_output(JSON.parse(response.body)))
+      rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
+        hash_result.store(sym, "HTTP Error")
+      end
+
+      http.shutdown
+
+      hash_result
+    end
+
     def quotes(symbol, mod = "price") # rubocop:disable Metrics/MethodLength
       hash_result = {}
       symbols = make_symbols_array(symbol)
@@ -43,6 +62,13 @@ module BasicYahooFinance
       else
         [symbol]
       end
+    end
+
+    def process_isin_output(json)
+      result = json["quotes"]&.dig(0, 'symbol')
+      return nil if result.nil?
+
+      result
     end
 
     def process_output(json, mod)
