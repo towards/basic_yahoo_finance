@@ -36,7 +36,7 @@ module BasicYahooFinance
       hash_result
     end
 
-    def chart(symbol, mod) # rubocop:disable Metrics/MethodLength
+    def charts(symbol, mod) # rubocop:disable Metrics/MethodLength
       hash_result = {}
       symbols = make_symbols_array(symbol)
       http = Net::HTTP::Persistent.new
@@ -44,7 +44,7 @@ module BasicYahooFinance
       symbols.each do |sym|
         uri = URI("#{API_URL}/v8/finance/chart/#{sym}?interval=1d&range=1d")
         response = http.request(uri)
-        hash_result.store(sym, process_output(JSON.parse(response.body), mod))
+        hash_result.store(sym, process_chart_output(JSON.parse(response.body), mod))
       rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
         hash_result.store(sym, "HTTP Error")
       end
@@ -62,7 +62,7 @@ module BasicYahooFinance
       symbols.each do |sym|
         uri = URI("#{API_URL}/v6/finance/quoteSummary/#{sym}?modules=#{mod}")
         response = http.request(uri)
-        hash_result.store(sym, process_chart_output(JSON.parse(response.body), mod))
+        hash_result.store(sym, process_output(JSON.parse(response.body), mod))
       rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
         hash_result.store(sym, "HTTP Error")
       end
