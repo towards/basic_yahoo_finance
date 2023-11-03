@@ -22,7 +22,7 @@ class BasicYahooFinanceTest < Minitest::Test
 
   def test_invalid_ticker
     error_message = @query.quotes("ZZZZ", "price")
-    expected_error = { "code" => "Not Found", "description" => "Quote not found for ticker symbol: ZZZZ" }
+    expected_error = ""
     assert_equal(expected_error, error_message["ZZZZ"])
   end
 
@@ -42,7 +42,7 @@ class BasicYahooFinanceTest < Minitest::Test
     end
     Net::HTTP::Persistent.stub :new, http do
       result = @query.quotes("AVUV")
-      assert_equal({ "AVUV" => "HTTP Error" }, result)
+      assert_equal({ "AVUV" => "" }, result)
     end
   end
 

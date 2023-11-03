@@ -27,7 +27,7 @@ module BasicYahooFinance
         response = http.request(uri)
         hash_result.store(sym, process_output(JSON.parse(response.body), mod))
       rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
-        hash_result.store(sym, "HTTP Error")
+        hash_result.store(sym, "")
       end
 
       http.shutdown
