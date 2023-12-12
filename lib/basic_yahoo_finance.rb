@@ -27,8 +27,9 @@ module BasicYahooFinance
         uri = URI("#{API_URL}/v1/finance/search?q=#{isin}&quotesCount=1&newsCount=0&listsCount=0&quotesQueryId=tss_match_phrase_query")
         response = http.request(uri)
         hash_result.store(isin, process_isin_output(JSON.parse(response.body)))
-      rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
-        hash_result.store(sym, "HTTP Error")
+        sleep 0.1 # the sleep is needed to avoid request limit
+      rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError => e
+        hash_result.store(isin, "HTTP Error: #{response.body}, e.message: #{e.message}")
       end
 
       http.shutdown
