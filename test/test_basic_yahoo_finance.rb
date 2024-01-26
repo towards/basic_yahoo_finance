@@ -17,13 +17,11 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_valid_ticker
-    assert_includes(@query.quotes("AVUV", "price"), "AVUV")
+    assert_includes(@query.quotes("AVUV"), "AVUV")
   end
 
   def test_invalid_ticker
-    error_message = @query.quotes("ZZZZ", "price")
-    expected_error = { "code" => "Not Found", "description" => "Quote not found for ticker symbol: ZZZZ" }
-    assert_equal(expected_error, error_message["ZZZZ"])
+    assert_nil(@query.quotes("ZZZZ")["ZZZZ"])
   end
 
   def test_valid_tickers
@@ -31,8 +29,8 @@ class BasicYahooFinanceTest < Minitest::Test
     assert_includes(q, "AVUV") and assert_includes(q, "AVEM")
   end
 
-  def test_summary_detail_module
-    assert_includes(@query.quotes("AVUV", "summaryDetail"), "AVUV")
+  def test_quote_price
+    assert_includes(@query.quotes("AVUV")["AVUV"], "regularMarketPrice")
   end
 
   def test_http_error
@@ -47,11 +45,11 @@ class BasicYahooFinanceTest < Minitest::Test
   end
 
   def test_find_fx_symbol_gbp_chf
-    assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBPCHF=x", "price"), "GBP", "CHF")
+    assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBPCHF=x"), "GBP", "CHF")
   end
 
   def test_find_fx_symbol_usd_chf
-    assert_equal "CHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("USDCHF=x", "price"), "USD", "CHF")
+    assert_equal "CHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("USDCHF=x"), "USD", "CHF")
   end
 
   def test_generate_currency_symbols

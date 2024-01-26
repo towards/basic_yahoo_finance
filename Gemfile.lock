@@ -10,28 +10,32 @@ GEM
     ast (2.4.2)
     connection_pool (2.4.1)
     docile (1.4.0)
-    json (2.6.3)
+    json (2.7.1)
+    language_server-protocol (3.17.0.3)
     minitest-emoji (2.0.0)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
-    parallel (1.23.0)
-    parser (3.2.2.1)
+    parallel (1.24.0)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
+      racc
+    racc (1.7.3)
     rainbow (3.1.1)
-    rake (13.0.6)
-    regexp_parser (2.8.0)
-    rexml (3.2.5)
-    rubocop (1.50.2)
+    rake (13.1.0)
+    regexp_parser (2.9.0)
+    rexml (3.2.6)
+    rubocop (1.60.2)
       json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.0.0)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.0, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.1)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
     simplecov (0.22.0)
@@ -41,20 +45,19 @@ GEM
     simplecov-formatter-badge (0.1.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    unicode-display_width (2.4.2)
+    unicode-display_width (2.5.0)
 
 PLATFORMS
-  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   basic_yahoo_finance!
   minitest-emoji (~> 2.0)
   net-http-persistent (~> 4.0, >= 4.0.2)
-  rake (~> 13.0)
-  rubocop (~> 1.50)
+  rake (~> 13.1)
+  rubocop (~> 1.60)
   simplecov
   simplecov-formatter-badge
 
 BUNDLED WITH
-   2.4.12
+   2.4.19

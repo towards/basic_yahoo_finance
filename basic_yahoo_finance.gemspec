@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir["lib/**/*", "CHANGELOG.md", "LICENSE", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["bug_tracker_uri"] = "https://github.com/towards/basic_yahoo_finance/issues"
@@ -26,5 +26,4 @@ Gem::Specification.new do |spec|
 
   # spec.add_dependency "redis", "~> 5.0"
   spec.add_runtime_dependency "net-http-persistent", "~> 4.0", ">= 4.0.2"
-  spec.add_development_dependency "minitest-emoji", "~> 2.0"
 end
