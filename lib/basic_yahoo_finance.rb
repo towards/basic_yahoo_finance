@@ -14,7 +14,8 @@ module BasicYahooFinance
     API_URL = "https://query1.finance.yahoo.com"
     COOKIE_URL = "https://fc.yahoo.com"
     CRUMB_URL = "https://query1.finance.yahoo.com/v1/test/getcrumb"
-    USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4168.2 Safari/537.36"
+    USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " \
+                 "Chrome/90.0.4421.0 Safari/537.36 Edg/90.0.810.1"
 
     def initialize(cache_url = nil)
       @cache_url = cache_url
