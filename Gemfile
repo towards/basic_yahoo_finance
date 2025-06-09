@@ -13,3 +13,5 @@ gem "net-http-persistent", "~> 4.0", ">= 4.0.2"
 
 gem "simplecov", require: false, group: :test
 gem "simplecov-formatter-badge", require: false, group: :test
+
+gem "minitest", "~> 5.0", group: :test

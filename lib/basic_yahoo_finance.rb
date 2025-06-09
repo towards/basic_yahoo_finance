@@ -17,9 +17,9 @@ module BasicYahooFinance
       @cache_url = cache_url
     end
 
-    def find_symbol_by_isin(isin)
+    def find_symbol_by_isin(isins_or_isin)
       hash_result = {}
-      isins = make_symbols_array(isin)
+      isins = make_symbols_array(isins_or_isin)
 
       http = Net::HTTP::Persistent.new
       http.override_headers["User-Agent"] = "BYF/#{BasicYahooFinance::VERSION}"
@@ -37,13 +37,21 @@ module BasicYahooFinance
       hash_result
     end
 
-    def charts(symbol, mod) # rubocop:disable Metrics/MethodLength
+    def charts(symbol, mod: nil, range: "1d", interval: "1d", profile: nil) # rubocop:disable Metrics/MethodLength
       hash_result = {}
       symbols = make_symbols_array(symbol)
       http = Net::HTTP::Persistent.new
       http.override_headers["User-Agent"] = "BYF/#{BasicYahooFinance::VERSION}"
       symbols.each do |sym|
-        uri = URI("#{API_URL}/v8/finance/chart/#{sym}?interval=1d&range=1d")
+        query_params = []
+        query_params << "interval=#{interval}" if interval
+        query_params << "range=#{range}" if range
+        query_params << "profile=#{profile}" if profile
+
+        uri_string = "#{API_URL}/v8/finance/chart/#{sym}"
+        uri_string += "?#{query_params.join("&")}" if query_params.any?
+
+        uri = URI(uri_string)
         response = http.request(uri)
         hash_result.store(sym, process_chart_output(JSON.parse(response.body), mod))
       rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
@@ -84,7 +92,7 @@ module BasicYahooFinance
     end
 
     def process_isin_output(json)
-      result = json["quotes"]&.dig(0, 'symbol')
+      result = json["quotes"]&.dig(0, "symbol")
       return nil if result.nil?
 
       result

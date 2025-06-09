@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    basic_yahoo_finance (0.5.1)
+    basic_yahoo_finance (0.5.4)
       net-http-persistent (~> 4.0, >= 4.0.2)
 
 GEM
@@ -11,6 +11,7 @@ GEM
     connection_pool (2.4.1)
     docile (1.4.0)
     json (2.6.3)
+    minitest (5.25.5)
     minitest-emoji (2.0.0)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
@@ -45,10 +46,12 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
   basic_yahoo_finance!
+  minitest (~> 5.0)
   minitest-emoji (~> 2.0)
   net-http-persistent (~> 4.0, >= 4.0.2)
   rake (~> 13.0)
