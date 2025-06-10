@@ -1,9 +1,9 @@
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
 
 Layout/LineLength:
-  Max: 120
+  Max: 135
 
 Lint/EmptyClass:
   AllowComments: true

@@ -31,9 +31,6 @@ Instantiate the `Query` class and use the quotes method on it with either a sing
 # Query a stock, with the price module
 
 query = BasicYahooFinance::Query.new
-data = query.quotes('AVEM', 'price')
-
-# OR the module argument can be left empty as the price module is the default
 data = query.quotes('AVEM')
 
 # Query multiple stocks
@@ -56,45 +53,6 @@ data["AVEM"]["regularMarketPrice"]["raw"]
 # 52.72
 ```
 
-## Modules
-
-While `price` is a common module, its not the only one. A list of known modules include:
-
-```
-assetProfile
-balanceSheetHistory
-balanceSheetHistoryQuarterly
-calendarEvents
-cashflowStatementHistory
-cashflowStatementHistoryQuarterly
-defaultKeyStatistics
-earnings
-earningsHistory
-earningsTrend
-esgScores
-financialData
-fundOwnership
-incomeStatementHistory
-incomeStatementHistoryQuarterly
-indexTrend
-industryTrend
-insiderHolders
-insiderTransactions
-institutionOwnership
-majorDirectHolders
-majorHoldersBreakdown
-netSharePurchaseActivity
-price
-recommendationTrend
-secFilings
-sectorTrend
-summaryDetail
-summaryProfile
-upgradeDowngradeHistory
-pageviews
-quotetype
-```
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -107,7 +65,7 @@ As linter RuboCop is used and can be run using:
 
     $ rake rubocop
 
-This gem is being developed with Ruby 3.2 but should be downward compatible with at least all supported versions of Ruby.
+This gem is being developed with Ruby 3.3 but should be downward compatible with at least all supported versions of Ruby.
 
 ## Contributing
 
