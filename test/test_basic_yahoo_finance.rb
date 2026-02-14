@@ -44,6 +44,37 @@ class BasicYahooFinanceTest < Minitest::Test
     end
   end
 
+  def test_history_valid_ticker
+    result = @query.history("AAPL", 1_700_000_000, 1_710_000_000)
+    assert_includes(result, "AAPL")
+  end
+
+  def test_history_invalid_ticker
+    result = @query.history("ZZZZ", 1_700_000_000, 1_710_000_000)
+    assert_includes(result["ZZZZ"]["chart"], "error")
+  end
+
+  def test_history_valid_tickers
+    result = @query.history(%w[AAPL GOOG], 1_700_000_000, 1_710_000_000)
+    assert_includes(result, "AAPL") and assert_includes(result, "GOOG")
+  end
+
+  def test_history_custom_interval
+    result = @query.history("AAPL", 1_700_000_000, 1_710_000_000, "1wk")
+    assert_includes(result, "AAPL")
+  end
+
+  def test_history_http_error
+    http = Net::HTTP::Persistent.new
+    def http.request(_)
+      raise Net::HTTPBadResponse, "Bad response"
+    end
+    Net::HTTP::Persistent.stub :new, http do
+      result = @query.history("AAPL", 1_700_000_000, 1_710_000_000)
+      assert_equal({ "AAPL" => "HTTP Error" }, result)
+    end
+  end
+
   def test_find_fx_symbol_gbp_chf
     assert_equal "GBPCHF=X", BasicYahooFinance::Util.find_fx_symbol(@query.quotes("GBPCHF=x"), "GBP", "CHF")
   end
