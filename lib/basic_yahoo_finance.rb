@@ -23,47 +23,47 @@ module BasicYahooFinance
       @crumb = fetch_crumb(@cookie)
     end
 
-    def quotes(symbol) # rubocop:disable Metrics/MethodLength
+    def quotes(symbol)
       hash_result = {}
-      symbols = make_symbols_array(symbol)
-      http = Net::HTTP::Persistent.new
-      http.override_headers["User-Agent"] = USER_AGENT
-      http.override_headers["Cookie"] = @cookie
-      symbols.each do |sym|
-        uri = URI("#{API_URL}/v7/finance/quote?symbols=#{sym}&crumb=#{@crumb}")
-        response = http.request(uri)
-        hash_result.store(sym, process_output(JSON.parse(response.body)))
-      rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
-        hash_result.store(sym, "HTTP Error")
-      end
 
-      http.shutdown
+      with_http do |http|
+        make_symbols_array(symbol).each do |sym|
+          uri = URI("#{API_URL}/v7/finance/quote?symbols=#{sym}&crumb=#{@crumb}")
+          response = http.request(uri)
+          hash_result.store(sym, process_output(JSON.parse(response.body)))
+        rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
+          hash_result.store(sym, "HTTP Error")
+        end
+      end
 
       hash_result
     end
 
     def history(symbol, period1, period2, interval = "1d")
       hash_result = {}
-      symbols = make_symbols_array(symbol)
 
-      http = Net::HTTP::Persistent.new
-      http.override_headers["User-Agent"] = USER_AGENT
-      http.override_headers["Cookie"] = @cookie
-
-      symbols.each do |sym|
-        uri = URI("#{API_URL}/v8/finance/chart/#{sym}?period1=#{period1}&period2=#{period2}&interval=#{interval}&crumb=#{@crumb}")
-        response = http.request(uri)
-        hash_result.store(sym, process_history_output(JSON.parse(response.body)))
-      rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
-        hash_result.store(sym, "HTTP Error")
+      with_http do |http|
+        make_symbols_array(symbol).each do |sym|
+          uri = URI("#{API_URL}/v8/finance/chart/#{sym}?period1=#{period1}&period2=#{period2}&interval=#{interval}&crumb=#{@crumb}")
+          response = http.request(uri)
+          hash_result.store(sym, process_history_output(JSON.parse(response.body)))
+        rescue Net::HTTPBadResponse, Net::HTTPNotFound, Net::HTTPError, Net::HTTPServerError, JSON::ParserError
+          hash_result.store(sym, "HTTP Error")
+        end
       end
-
-      http.shutdown
 
       hash_result
     end
 
     private
+
+    def with_http
+      http = Net::HTTP::Persistent.new
+      http.override_headers["User-Agent"] = USER_AGENT
+      http.override_headers["Cookie"] = @cookie
+      yield(http)
+      http.shutdown
+    end
 
     def fetch_cookie
       http = Net::HTTP.get_response(URI(COOKIE_URL), { "Keep-Session-Cookies" => "true" })
@@ -96,7 +96,8 @@ module BasicYahooFinance
 
     def process_history_output(json)
       # Handle error from the API that the code isn't found
-      return json["error"] unless json["error"].nil?
+      error = json.dig("chart", "error")
+      return error unless error.nil?
 
       json
     end
