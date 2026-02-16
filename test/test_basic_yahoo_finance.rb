@@ -51,7 +51,9 @@ class BasicYahooFinanceTest < Minitest::Test
 
   def test_history_invalid_ticker
     result = @query.history("ZZZZ", 1_700_000_000, 1_710_000_000)
-    assert_includes(result["ZZZZ"]["chart"], "error")
+    error = result["ZZZZ"]
+    assert_equal "Not Found", error["code"]
+    assert_includes error["description"], "No data found"
   end
 
   def test_history_valid_tickers
