@@ -27,6 +27,8 @@ Or install it yourself as:
 
 Instantiate the `Query` class and use the quotes method on it with either a single stock as a `String` and a single module as a `String` or by passing an `Array` of stocks such as show in the two examples below.
 
+### Quotes
+
 ```ruby
 # Query a stock, with the price module
 
@@ -51,6 +53,23 @@ data['AVEM']['regularMarketPrice']['fmt']
 # OR the raw value
 data["AVEM"]["regularMarketPrice"]["raw"]
 # 52.72
+```
+
+### Historical Data
+
+Use the `history` method to retrieve historical price data for one or more stocks. It requires a symbol, a start date (`period1`) and an end date (`period2`) as Unix timestamps. An optional `interval` parameter defaults to `"1d"`.
+
+```ruby
+query = BasicYahooFinance::Query.new
+
+# Daily history for a single stock
+data = query.history('AAPL', 1_700_000_000, 1_710_000_000)
+
+# Weekly history
+data = query.history('AAPL', 1_700_000_000, 1_710_000_000, '1wk')
+
+# Multiple stocks
+data = query.history(['AAPL', 'GOOG'], 1_700_000_000, 1_710_000_000)
 ```
 
 ## Development

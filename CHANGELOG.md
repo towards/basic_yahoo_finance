@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Historical data query method (`history`) with support for single/multiple stocks and custom intervals
+
 ### Changed
 
 - Update gem dependencies and Ruby version
