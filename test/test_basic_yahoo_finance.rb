@@ -6,6 +6,7 @@ SimpleCov.start
 require "simplecov-formatter-badge"
 require "minitest/autorun"
 require "minitest/emoji"
+require "minitest/mock"
 require "basic_yahoo_finance"
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new \

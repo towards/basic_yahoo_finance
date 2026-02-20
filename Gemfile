@@ -14,4 +14,6 @@ gem "net-http-persistent", "~> 4.0", ">= 4.0.2"
 gem "simplecov", require: false, group: :test
 gem "simplecov-formatter-badge", require: false, group: :test
 
+gem "minitest", group: %i[development test]
 gem "minitest-emoji", "~> 2.0", group: %i[development test]
+gem "minitest-mock", group: %i[development test]

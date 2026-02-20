@@ -78,14 +78,14 @@ After checking out the repo, run `bin/setup` to install dependencies. You can al
 
 MiniTest is used as test framework and can be run using:
 
-    $ rake test
+    $ bundle exec rake test
 
 As linter RuboCop is used and can be run using:
 
-    $ rake rubocop
+    $ bundle exec rake rubocop
 
-This gem is being developed with Ruby 3.3 but should be downward compatible with at least all supported versions of Ruby.
+This gem is being developed with Ruby 3.4 but should be downward compatible with at least all supported versions of Ruby.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/towards/basic_yahoo_finance. If you submit a pull request please make sure to write a test case using MiniTest covering your changes.
+Bug reports and pull requests are welcome on GitHub at https://github.com/towards/basic_yahoo_finance. If you submit a pull request please make sure to write test cases using MiniTest covering your changes and that there are no RuboCop offenses.
