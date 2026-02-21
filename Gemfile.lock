@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    basic_yahoo_finance (0.5.1)
+    basic_yahoo_finance (0.6.0)
       net-http-persistent (~> 4.0, >= 4.0.2)
 
 GEM

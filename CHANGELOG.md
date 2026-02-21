@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.6.0] - 2026-02-21
 
 ### Added
 
-- Historical data query method (`history`) with support for single/multiple stocks and custom intervals
+- Historical data query method (`history`) with support for single/multiple stocks and custom intervals by [@lucienLopez](https://github.com/lucienLopez)
 - Include minitest and minitest-mock gems required by newer Ruby 3.4.x versions
 
 ### Changed
@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Possibility to use modules in query
+
+## [0.5.2] - 2025-03-29
+
+### Changed
+
+- Update gem dependencies and Ruby version
 
 ## [0.5.1] - 2023-07-14
 
